@@ -17,7 +17,6 @@
     {% csrf_token %}
         <input class="p-3"style=" border-color:  rgb(135, 201, 228); border-radius:20px;" type=""placeholder="username or email" id="username" name="username"required value={{mem.username}}><br><br>
         <input class="p-3"style=" border-color:  rgb(135, 201, 228); border-radius:20px;" type="email"placeholder="email"name="email"required value={{mem.email}}><br><br>
-        <input class="p-3" style=" border-color:  rgb(135, 201, 228); border-radius:20px;" type="password"placeholder="password"name="password"required value={{mem.password}}><br><br>
         <button class="btn btn-primary" type="submit">Update</button>
     </form>
 </div>

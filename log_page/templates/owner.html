@@ -15,6 +15,9 @@
 <body>
     <div class="container justify-content-center"><br>
         <h1 class="text-center">Members</h1>
+        <div class="text-end">
+            <a href="{% url 'logout'%}"><button class="btn btn-success m-2" type="button">log out</button></a>
+        </div>
         <table class="table table-bordered border-primary" id="customers" border="1">
             <thead>
                 <th>Id</th>
@@ -24,7 +27,7 @@
             </thead>
             {% for x in mem %}
             <tr>
-                <td>{{x.id}}</td>
+                <td>{{x.id}}</td>   
                 <td>{{x.username}}</td>
                 <td>{{x.email}}</td>
                 <td>
@@ -36,10 +39,9 @@
             </tr>
             {% endfor%}
         </table>
-        <a href="{% url 'signup'%}"><button class="btn btn-dark " id="new3">Add Member</button></a>
-    </div>
+        <a href="{% url 'addmem'%}"><button class="btn btn-dark " id="new3">Add Member</button></a>
         
-        <br>
+    </div>
         
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

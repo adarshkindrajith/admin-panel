@@ -4,8 +4,8 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages 
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_control
-from .models import Newuser,Newone
-
+from .models import Newuser
+from django.db import IntegrityError
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
@@ -19,6 +19,7 @@ def loginn(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_superuser:
+                login(request, user)
                 return redirect('owner')
             else:
                 login(request, user)
@@ -59,6 +60,9 @@ def logout_view(request):
     messages.success(request, 'You have been logged out successfully!')
     return redirect('loginn')
 
+
+@login_required(login_url='loginn')
+@cache_control(no_cache=True, no_store=True, must_revalidate=True)
 def owner(request):
     mem=User.objects.all()
     return render(request,'owner.html',{'mem':mem})
@@ -75,30 +79,35 @@ def updata(request,id):
 def data(request,id):
     x=request.POST['username']
     y=request.POST['email']
-    z=request.POST['password']
     mem=User.objects.get(id=id)
     mem.username=x
     mem.email=y
-    mem.password=z
     mem.save()
     return redirect("owner")
     
 
 def addmem(request):
+    return render(request, "addmem.html")
+
+def addnew(request):
     if request.method == "POST":
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
 
-        if Newone.objects.filter(username=username):
+        if Newuser.objects.filter(username=username):
             messages.error(request, "Username already exists. Please choose another one.")
-            return redirect('signup')
-        elif Newone.objects.filter(email=email):
+            return redirect('addmem')
+        elif Newuser.objects.filter(email=email):
             messages.error(request, "Email is already registered. Please use a different email.")
-            return redirect('signup')
-        else:
-            new = User.objects.create_user(username, email, password)
-            new.save()
+            return redirect('addmem')
+        try:
+            myuser = User.objects.create_user(username, email, password)
+            myuser.save()
             return redirect('owner')
-    return render(request, "addmem.html")
+        except IntegrityError:
+            messages.error(request, "user exist ")
+
+    return render(request, "addmem.html")    
+    
 

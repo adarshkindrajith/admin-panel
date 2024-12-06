@@ -12,4 +12,5 @@ urlpatterns = [
     path('owner/updata/<int:id>/', views.updata, name='updata'),
     path('owner/data/<int:id>/', views.data, name='data'),
     path('addmem/', views.addmem, name='addmem'),
+    path('addnew/', views.addnew, name='addnew'),
 ]
