@@ -22,16 +22,16 @@
                 
                 <input class="p-3"style=" border-color:  rgb(135, 201, 228); border-radius:20px;" type="email"placeholder="email" id="email" name="email"required><br><br>
                 
-                <input class="p-3" style=" border-color:  rgb(135, 201, 228); border-radius:20px;" type="password"placeholder="password" id="password" name="password"required ><br><br>
-                <div>
+                <input class="p-3" style=" border-color:  rgb(135, 201, 228); border-radius:20px;" type="password"placeholder="password" id="password" name="password"required >
+                <div><br>
                     {% if messages%}
                         {% for message in messages%}
-                            <p class="text-black">{{message}}</p>
+                            <h9 class="text-black">{{message}}</h9>
                         {% endfor %}
                     {% endif%}
 
                 </div>
-                <button class="btn btn-primary text-white" type="submit">submit</button>
+                <button class="btn btn-primary text-white mt-2"style="width:200px;border-radius:15px;" type="submit">submit</button>
         
             </form><br>
         </div>

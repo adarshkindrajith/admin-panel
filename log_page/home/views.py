@@ -34,10 +34,10 @@ def signup(request):
         email = request.POST['email']
         password = request.POST['password']
 
-        if Newuser.objects.filter(username=username):
+        if User.objects.filter(username=username):
             messages.error(request, "Username already exists. Please choose another one.")
             return redirect('signup')
-        elif Newuser.objects.filter(email=email):
+        elif User.objects.filter(email=email):
             messages.error(request, "Email is already registered. Please use a different email.")
             return redirect('signup')
         else:
@@ -95,10 +95,10 @@ def addnew(request):
         email = request.POST['email']
         password = request.POST['password']
 
-        if Newuser.objects.filter(username=username):
+        if User.objects.filter(username=username):
             messages.error(request, "Username already exists. Please choose another one.")
             return redirect('addmem')
-        elif Newuser.objects.filter(email=email):
+        elif User.objects.filter(email=email):
             messages.error(request, "Email is already registered. Please use a different email.")
             return redirect('addmem')
         try:
