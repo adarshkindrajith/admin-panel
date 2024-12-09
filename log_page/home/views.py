@@ -4,7 +4,6 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages 
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_control
-from .models import Newuser
 from django.db import IntegrityError
 # Create your views here.
 def index(request):
@@ -72,6 +71,9 @@ def deleted(request,id):
     mem.delete()
     return redirect("owner")
 
+
+@login_required(login_url='loginn')
+@cache_control(no_cache=True, no_store=True, must_revalidate=True)
 def updata(request,id):
     mem=User.objects.get(id=id)
     return render(request,'updata.html',{'mem':mem})
@@ -85,9 +87,12 @@ def data(request,id):
     mem.save()
     return redirect("owner")
     
-
+@login_required(login_url='loginn')
+@cache_control(no_cache=True, no_store=True, must_revalidate=True)
 def addmem(request):
     return render(request, "addmem.html")
+
+
 
 def addnew(request):
     if request.method == "POST":
