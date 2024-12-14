@@ -91,15 +91,11 @@ def data(request,id):
 @cache_control(no_cache=True, no_store=True, must_revalidate=True)
 def addmem(request):
     return render(request, "addmem.html")
-
-
-
 def addnew(request):
     if request.method == "POST":
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
-
         if User.objects.filter(username=username):
             messages.error(request, "Username already exists. Please choose another one.")
             return redirect('addmem')
@@ -112,7 +108,6 @@ def addnew(request):
             return redirect('owner')
         except IntegrityError:
             messages.error(request, "user exist ")
-
     return render(request, "addmem.html")    
     
 
